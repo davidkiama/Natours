@@ -79,6 +79,26 @@ app.patch("/api/v1/tours/:id", (req, res) => {
   });
 });
 
+// Deleting a tour
+app.delete("/api/v1/tours/:id", (req, res) => {
+  const id = req.params.id * 1; // covert id string to number
+  const tour = tours.find((tour) => tour.id === id);
+  //Confirm that tour with that id exists
+  // if (id > tours.length) {
+  //   return res.status(404).json({ status: "failed", message: "Invalid id" });
+  // }
+
+  // same as above
+  if (!tour) {
+    return res.status(404).json({ status: "failed", message: "Invalid id" });
+  }
+
+  res.status(204).json({
+    status: "success",
+    data: null,
+  });
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}...`);
