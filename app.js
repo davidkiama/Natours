@@ -57,6 +57,28 @@ app.post("/api/v1/tours", (req, res) => {
   });
 });
 
+// Updating a tour
+app.patch("/api/v1/tours/:id", (req, res) => {
+  const id = req.params.id * 1; // covert id string to number
+  const tour = tours.find((tour) => tour.id === id);
+  //Confirm that tour with that id exists
+  // if (id > tours.length) {
+  //   return res.status(404).json({ status: "failed", message: "Invalid id" });
+  // }
+
+  // same as above
+  if (!tour) {
+    return res.status(404).json({ status: "failed", message: "Invalid id" });
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      tour: "Updated tour here...",
+    },
+  });
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}...`);
